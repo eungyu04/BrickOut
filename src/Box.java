@@ -13,6 +13,9 @@ public class Box {
     public boolean inVerticalContact(int y_position) {      // y축 벽에 나갔는지 확인
         return y_position <= 0; // || y_position >= box_size;
     }
+    public boolean outVerticalContact(int y_position) {      // y축 벽에 나갔는지 확인
+        return y_position >= box_size;
+    }
 
     // getter
     public int SizeOf() {

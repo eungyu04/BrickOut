@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class MovingBall {
     private int x_pos, y_pos, radius;   // x위치, y위치, 반지름
     private int x_velocity;         // x축 속도
@@ -28,14 +30,25 @@ public class MovingBall {
     // setter
     public void move(int time_units) {      // 공 움직임
         x_pos = x_pos + x_velocity * time_units;
-        if (container.inHorizontalContact(x_pos))   // 벽튕기기
+        if (container.inHorizontalContact(x_pos))   // 벽 튕기기
             x_velocity = -x_velocity;
 
         y_pos = y_pos + y_velocity * time_units;
-        if (container.inVerticalContact(y_pos))     // 벽튕기기
+        if (container.inVerticalContact(y_pos))     // 벽 튕기기
             y_velocity = -y_velocity;
-        if (x_pos >= pedal.getX_pos() && x_pos <= pedal.getX_pos() + pedal.get_width() && y_pos >= container.SizeOf() - 100) // pedal과 닿으면 튕기기
-            y_velocity = -y_velocity;
+
+        if (container.outVerticalContact(y_pos)) {      // 게임 종료
+            JOptionPane.showMessageDialog(null, "Game Over \nGo to Ranking");
+            System.exit(0);
+        }
+
+        if (x_pos + radius >= pedal.getX_pos() && x_pos - radius <= pedal.getX_pos() + pedal.get_width()
+                && y_pos + radius >= container.SizeOf() - 100 && y_pos <= container.SizeOf() - 100 + pedal.get_height()) { // pedal과 닿으면 튕기기
+
+            if (y_velocity > 0) // pedal 안에 갇힘 방지
+                y_velocity = -y_velocity;
+        }
+
 
     }
 

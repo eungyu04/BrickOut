@@ -28,7 +28,7 @@ public class BounceController extends KeyAdapter {
     // key event -> KeyPressed() 정의
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("aaa");
+        //System.out.println("KeyPressed success");
         int keyCode = e.getKeyCode();
 
         if (keyCode == KeyEvent.VK_RIGHT) {     // Right

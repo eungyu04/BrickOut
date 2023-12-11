@@ -1,20 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class DifficultyFrame {
     private AnimationWriter AW;
     private MovingBall MB;
+    private JFrame difficulty_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능
+    private boolean visible;
 
     public DifficultyFrame(AnimationWriter aw, MovingBall mb) {
         this.AW = aw;
         this.MB = mb;
 
-        JFrame difficulty_frame = new JFrame();                 // JFrame 객체 생성
+        difficulty_frame = new JFrame();                 // JFrame 객체 생성
         difficulty_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         difficulty_frame.setTitle("DIFFICULTY");                // title
-        difficulty_frame.setSize( 300, 300);       // frame size
+        difficulty_frame.setSize( 300, 300);        // frame size
         difficulty_frame.setLocation(600,200);            // Location
 
         JPanel difficultly_panel = new JPanel();                // JPanel 객체 생성
@@ -23,8 +24,8 @@ public class DifficultyFrame {
         // slow button (easy)
         JButton easyButton = new JButton("Easy");
         easyButton.setBorder(BorderFactory.createLineBorder(Color.black, 1));    // 마우스 가져다 댔을 때 변화 X
-        easyButton.setPreferredSize(new Dimension(150, 60));            // 버튼 크기
-        easyButton.setBackground(Color.gray);                                       // 버튼 배경 색
+        easyButton.setPreferredSize(new Dimension(150, 60));                // 버튼 크기
+        easyButton.setBackground(Color.gray);                                           // 버튼 배경 색
         difficultly_panel.add(easyButton);
 
         // fast button (hard)
@@ -58,6 +59,9 @@ public class DifficultyFrame {
         difficulty_frame.setVisible(true);                      // 보이게 함
     }
 
-
+    public void setvisible(boolean n) {
+        visible = n;
+        difficulty_frame.setVisible(visible);
+    }
 
 }
