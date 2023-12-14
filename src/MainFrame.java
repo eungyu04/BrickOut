@@ -3,22 +3,25 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrame extends JFrame {
-    private int width = 480;
-    private int height = 720;
+    private DifficultyFrame DF;
+    private Box box;
     private JFrame MainFrame;
     private JPanel mainPanel1;
     private JPanel mainPanel2;
     private boolean visible = true;
 
-    public MainFrame() {
+    public MainFrame(DifficultyFrame DF, Box box) {
+        this.DF = DF;
+        this.box = box;
+
         // background image1
         Image beforeImage = new ImageIcon(getClass().getResource("/image/background1.png")).getImage();
-        Image afterImage = beforeImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image afterImage = beforeImage.getScaledInstance(box.SizeOf_width(), box.SizeOf_height(), Image.SCALE_SMOOTH);
         ImageIcon backgroundIcon = new ImageIcon(afterImage);
 
         MainFrame = new JFrame();
         MainFrame.setTitle("Game");
-        MainFrame.setSize(width, height);
+        MainFrame.setSize(box.SizeOf_width(), box.SizeOf_height());
         MainFrame.setResizable(false);
         MainFrame.setLocationRelativeTo(null);
         MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +49,7 @@ public class MainFrame extends JFrame {
         nameArea.add(name, BorderLayout.CENTER);
         addButton(mainPanel1, nameArea, 0, 0, 200, 0, 0, 0);    // panel1에 nameArea 추가
 
-        // 확인버튼 --> efect 추가해야됨 - 패널1
+        // 확인버튼 - 패널1 -> 이름이 입력되지 않으면 file입력하는 부분에서 IOecexption뜨게되고, 이걸 try-catch로 잡아야됨
         JButton okayButton = createButton("/image/okaybutton.png", "/image/okaybutton2.png");
         addButton(mainPanel1, okayButton, 0, 1, 20, 0, 0, 0);
         okayButton.addActionListener(new ActionListener() {
@@ -56,9 +59,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+
         // background image2
         Image beforeImage2 = new ImageIcon(getClass().getResource("/image/background2.png")).getImage();
-        Image afterImage2 = beforeImage2.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image afterImage2 = beforeImage2.getScaledInstance(box.SizeOf_width(), box.SizeOf_height(), Image.SCALE_SMOOTH);
         ImageIcon backgroundIcon2 = new ImageIcon(afterImage2);
 
         // 패널2 (Start, Ranking)
@@ -69,6 +73,14 @@ public class MainFrame extends JFrame {
         // 시작버튼 - 패널2
         JButton startButton = createButton("/image/startbutton.png", "/image/startbutton2.png");
         addButton(mainPanel2, startButton, 0, 0, 100, 0, 0, 0);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setvisible(false);
+                DF.setvisible(true);
+            }
+        });
+
         // 랭킹버튼 - 패널2
         JButton rankButton = createButton("/image/rankingbutton.png", "/image/rankingbutton2.png");
         addButton(mainPanel2, rankButton, 0, 1, 20, 0, 0, 0);

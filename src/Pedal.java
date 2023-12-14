@@ -18,5 +18,5 @@ public class Pedal {
 
     // setter
     public void moveLeft() { if (x_pos > 0 ) x_pos -= velocity; }
-    public void moveRight() { if (x_pos + width < 480 ) x_pos += velocity; }    // 480보다 작을 때
+    public void moveRight() { if (x_pos + width < 465 ) x_pos += velocity; }    // 480보다 작을 때
 }

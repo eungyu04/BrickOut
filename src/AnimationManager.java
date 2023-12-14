@@ -17,12 +17,11 @@ public class AnimationManager {
 
         BounceController BC = new BounceController(MB, AW, Pd);
 
-        // Login
-
-
         // Difficulty
-        DifficultyFrame DF = new DifficultyFrame(AW, MB);
+        DifficultyFrame DF = new DifficultyFrame(AW, MB, box);
 
+        // Main
+        MainFrame MF = new MainFrame(DF, box);
 
         BC.runAnimation();
     }
