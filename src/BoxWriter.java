@@ -10,10 +10,11 @@ public class BoxWriter {
 
     // setter
     public void paint(Graphics g) {
-        int size = box.SizeOf();
+        int xsize = box.SizeOf_width();
+        int ysize = box.SizeOf_height();
         g.setColor(Color.black);                            // background color
-        g.fillRect(0, 0, size + 360, size);     // Rect
+        g.fillRect(0, 0, xsize, ysize);     // Rect
         g.setColor(Color.white);                            // ??
-        g.drawRect(0, 0, size + 360, size);     // Rect
+        g.drawRect(0, 0, xsize, ysize);     // Rect
     }
 }

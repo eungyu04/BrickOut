@@ -42,8 +42,6 @@ public class BounceController extends KeyAdapter {
     private void delay(int how_long) {
         try {
             Thread.sleep(how_long);
-        } catch (InterruptedException e) {
-
-        }
+        } catch (InterruptedException e) { }
     }
 }

@@ -15,8 +15,9 @@ public class DifficultyFrame {
         difficulty_frame = new JFrame();                 // JFrame 객체 생성
         difficulty_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         difficulty_frame.setTitle("DIFFICULTY");                // title
-        difficulty_frame.setSize( 300, 300);        // frame size
-        difficulty_frame.setLocation(600,200);            // Location
+        difficulty_frame.setSize( 480, 720);        // frame size
+        difficulty_frame.setResizable(false);                   // 크기조절
+        difficulty_frame.setLocationRelativeTo(null);
 
         JPanel difficultly_panel = new JPanel();                // JPanel 객체 생성
         difficultly_panel.setBackground(Color.black);

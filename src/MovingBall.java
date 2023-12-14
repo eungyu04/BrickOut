@@ -43,7 +43,7 @@ public class MovingBall {
         }
 
         if (x_pos + radius >= pedal.getX_pos() && x_pos - radius <= pedal.getX_pos() + pedal.get_width()
-                && y_pos + radius >= container.SizeOf() - 100 && y_pos <= container.SizeOf() - 100 + pedal.get_height()) { // pedal과 닿으면 튕기기
+                && y_pos + radius >= container.SizeOf_height() - 100 && y_pos <= container.SizeOf_height() - 100 + pedal.get_height()) { // pedal과 닿으면 튕기기
 
             if (y_velocity > 0) // pedal 안에 갇힘 방지
                 y_velocity = -y_velocity;

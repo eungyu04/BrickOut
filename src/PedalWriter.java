@@ -10,9 +10,9 @@ public class PedalWriter {
     }
 
     public void paint(Graphics g) {
-        int size = box.SizeOf();
+        int ysize = box.SizeOf_height();
         g.setColor(Color.white);        // 색 지정
-        g.fillRoundRect(pedal.getX_pos(), size - 100, pedal.get_width(), pedal.get_height(), 10, 10);   // pedal
+        g.fillRoundRect(pedal.getX_pos(), ysize - 100, pedal.get_width(), pedal.get_height(), 10, 10);   // pedal
     }
 
 }

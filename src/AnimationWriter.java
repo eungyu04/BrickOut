@@ -9,7 +9,7 @@ public class AnimationWriter extends JPanel {
     private boolean visible = false;    // 초기 가시성은 false
 
     // Constructor (생성자)
-    public AnimationWriter(BoxWriter BoW, BallWriter BaW, PedalWriter peW , int size) {
+    public AnimationWriter(BoxWriter BoW, BallWriter BaW, PedalWriter peW , int xsize, int ysize) {
         box_writer = BoW;
         ball_writer = BaW;
         pedal_writer = peW;
@@ -18,7 +18,9 @@ public class AnimationWriter extends JPanel {
         my_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //
         my_frame.getContentPane().add(this);            //
         my_frame.setTitle("GAME");                      // title
-        my_frame.setSize(size + 360, size);       // frame size
+        my_frame.setSize(xsize , ysize);       // frame size
+        my_frame.setResizable(false);                   // 크기조절
+        my_frame.setLocationRelativeTo(null);
         my_frame.setVisible(visible);                   // 처음엔 안보임
     }
 
