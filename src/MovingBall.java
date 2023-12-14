@@ -48,8 +48,6 @@ public class MovingBall {
             if (y_velocity > 0) // pedal 안에 갇힘 방지
                 y_velocity = -y_velocity;
         }
-
-
     }
 
     // 속도변경
