@@ -2,12 +2,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class BounceController extends KeyAdapter {
-    private MovingBall ball;
+    private Ball ball;
     private Pedal pedal;
     private AnimationWriter writer;
 
     // Constructor (생성자)
-    public BounceController(MovingBall MB, AnimationWriter AW, Pedal Pd) {
+    public BounceController(Ball MB, AnimationWriter AW, Pedal Pd) {
         ball = MB; writer = AW; pedal = Pd;
         writer.addKeyListener(this);                    // KeyListener이 있어야 key event를 받아올 수 있음
         writer.setFocusable(true);                            // 포커스를 여기로 설정
@@ -18,6 +18,8 @@ public class BounceController extends KeyAdapter {
         int time_unit = 1;
         int painting_delay = 20;
         while (true)
+
+
         {
             delay(painting_delay);
             ball.move(time_unit);

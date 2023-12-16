@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class MovingBall {
+public class Ball {
     private int x_pos, y_pos, radius;   // x위치, y위치, 반지름
     private int x_velocity;         // x축 속도
     private int y_velocity;         // y축 속도
@@ -8,7 +8,7 @@ public class MovingBall {
     private Pedal pedal;
 
     // constructor
-    public MovingBall(int x, int y, int r, Box box, Pedal Pd) {
+    public Ball(int x, int y, int r, Box box, Pedal Pd) {
         x_pos = x;
         y_pos = y;
         radius = r;

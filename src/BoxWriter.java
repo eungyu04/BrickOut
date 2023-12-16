@@ -9,7 +9,7 @@ public class BoxWriter {
     }
 
     // setter
-    public void paint(Graphics g) {
+    public void paint(Graphics g) {     // 왼쪽에 흰색 없애기
         int xsize = box.SizeOf_width();
         int ysize = box.SizeOf_height();
         g.setColor(Color.black);                            // background color

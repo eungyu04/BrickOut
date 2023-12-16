@@ -3,7 +3,7 @@ import java.io.*;
 
 public class LoginFrame {
     private AnimationWriter AW;
-    private MovingBall MB;
+    private Ball MB;
     private DifficultyFrame DF;
     private JFrame Login_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능
     private boolean visible;

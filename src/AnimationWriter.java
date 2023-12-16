@@ -18,7 +18,7 @@ public class AnimationWriter extends JPanel {
         my_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //
         my_frame.getContentPane().add(this);            //
         my_frame.setTitle("GAME");                      // title
-        my_frame.setSize(xsize , ysize);       // frame size
+        my_frame.setSize(xsize , ysize);                // frame size
         my_frame.setResizable(false);                   // 크기조절
         my_frame.setLocationRelativeTo(null);
         my_frame.setVisible(visible);                   // 처음엔 안보임

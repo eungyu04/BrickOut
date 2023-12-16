@@ -9,6 +9,7 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel1;
     private JPanel mainPanel2;
     private boolean visible = true;
+    String user_name;
 
     public MainFrame(DifficultyFrame DF, Box box) {
         this.DF = DF;
@@ -47,18 +48,19 @@ public class MainFrame extends JFrame {
 
         nameArea.setLayout(new BorderLayout());
         nameArea.add(name, BorderLayout.CENTER);
-        addButton(mainPanel1, nameArea, 0, 0, 200, 0, 0, 0);    // panel1에 nameArea 추가
+        addButton(mainPanel1, nameArea, 0, 0, 230, 0, 0, 0);    // panel1에 nameArea 추가
 
-        // 확인버튼 - 패널1 -> 이름이 입력되지 않으면 file입력하는 부분에서 IOecexption뜨게되고, 이걸 try-catch로 잡아야됨
+        // 확인버튼 - 패널1 -> 이름이 입력되지 않으면 file 입력하는 부분에서 IOecexption뜨게되고, 이걸 try-catch로 잡아야됨
         JButton okayButton = createButton("/image/okaybutton.png", "/image/okaybutton2.png");
         addButton(mainPanel1, okayButton, 0, 1, 20, 0, 0, 0);
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                user_name = name.getText();
+                System.out.println(user_name);
                 CL.next(CardPanel);
             }
         });
-
 
         // background image2
         Image beforeImage2 = new ImageIcon(getClass().getResource("/image/background2.png")).getImage();
@@ -72,11 +74,11 @@ public class MainFrame extends JFrame {
 
         // 시작버튼 - 패널2
         JButton startButton = createButton("/image/startbutton.png", "/image/startbutton2.png");
-        addButton(mainPanel2, startButton, 0, 0, 100, 0, 0, 0);
+        addButton(mainPanel2, startButton, 0, 0, 250, 0, 0, 0);
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setvisible(false);
+                MainFrame.setVisible(false);
                 DF.setvisible(true);
             }
         });
@@ -84,6 +86,17 @@ public class MainFrame extends JFrame {
         // 랭킹버튼 - 패널2
         JButton rankButton = createButton("/image/rankingbutton.png", "/image/rankingbutton2.png");
         addButton(mainPanel2, rankButton, 0, 1, 20, 0, 0, 0);
+
+        // back버튼 - 패널2
+        JButton backButton = createButton("/image/backbutton.png", "/image/backbutton2.png");
+        addButton(mainPanel2, backButton, 0, 2, 15, 0, 0, 0);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CL.next(CardPanel);
+            }
+        });
+
 
         MainFrame.setVisible(visible);
     }
@@ -116,6 +129,10 @@ public class MainFrame extends JFrame {
         gbc.gridy = gridy;  // 열
         gbc.insets = new Insets(top, left, bottom, right);         // 여백 추가 -> 버튼 위치 조절하려고
         panel.add(button, gbc);
+    }
+
+    public String getUser_name() {
+        return user_name;
     }
 
     public void setvisible(boolean n) {

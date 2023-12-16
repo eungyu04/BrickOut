@@ -1,11 +1,11 @@
 import java.awt.*;
 
 public class BallWriter {
-    private MovingBall ball;
+    private Ball ball;
     private Color balls_color;
 
     // Constructor (생성자)
-    public BallWriter(MovingBall x, Color c) {
+    public BallWriter(Ball x, Color c) {
         ball = x;
         balls_color = c;
     }

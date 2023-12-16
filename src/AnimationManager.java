@@ -7,7 +7,7 @@ public class AnimationManager {
 
         Box box = new Box(box_width, box_height);
         Pedal Pd = new Pedal(150, 170, 20);
-        MovingBall MB = new MovingBall(0, 0, 10, box, Pd);
+        Ball MB = new Ball(0, 0, 10, box, Pd);
 
         BoxWriter BoW = new BoxWriter(box);
         PedalWriter PeW = new PedalWriter(Pd, box);
