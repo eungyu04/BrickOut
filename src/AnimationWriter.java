@@ -32,6 +32,16 @@ public class AnimationWriter extends JPanel {
         my_frame.setVisible(visible);
     }
 
+    public int getScore() {
+        int n = brick_writer.getScore();
+        return n;
+    }
+
+    public void ResetBricks() {
+        brick_writer.reset();
+    }
+
+
     @Override // 패널에 그림
     public void paintComponent(Graphics g) {
         box_writer.paint(g);

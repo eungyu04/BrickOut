@@ -1,45 +1,108 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BrickWriter extends JFrame {
-    private List<Brick> bricks;
+public class BrickWriter extends JFrame implements ActionListener {
+    private Brick[][] bricks;
+    private Ball ball;
+    private Timer timer;
+    private int score = 0;
 
-    public BrickWriter() {
-        bricks = new ArrayList<>();
+    public BrickWriter(Ball ball) {
+        this.ball = ball;
+        bricks = new Brick[5][8];  // 5행 8열의 벽돌 배열로 초기화
         initializeBricks();
+
+        timer = new Timer(5, this);
+        timer.start();
     }
 
     private void initializeBricks() {
-        int brickWidth = 84;
+        int brickWidth = 48;
         int brickHeight = 48;
-        int rows = 4;  // 4행
-        int columns = 5;  // 5열
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
-                int x = col * (brickWidth + 5) + 10;
+        for (int row = 0; row < bricks.length; row++) {
+            for (int col = 0; col < bricks[row].length; col++) {
+                int x = col * (brickWidth + 8) + 10;
                 int y = row * (brickHeight + 5) + 15;
-                Color color = Color.white; // 벽돌의 색상을 초록색으로 설정
+                Color color = Color.WHITE; // 벽돌의 색상을 하얀색으로 설정
 
-                Brick brick = new Brick(x, y, brickWidth, brickHeight, color);
-                bricks.add(brick);
+                bricks[row][col] = new Brick(x, y, brickWidth, brickHeight, color);
             }
         }
     }
 
     @Override
     public void paint(Graphics g) {
-        for (Brick brick : bricks) {
-            if (brick.isVisible()) {
-                g.setColor(brick.getColor());
-                g.fillRect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
-                g.setColor(brick.getColor());
-                g.drawRect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
+        super.paint(g);
+
+        for (int row = 0; row < bricks.length; row++) {
+            for (int col = 0; col < bricks[row].length; col++) {
+                if(bricks[row][col].isVisible()) {
+                    g.setColor(bricks[row][col].getColor());
+                    g.fillRect(bricks[row][col].getX(), bricks[row][col].getY(), bricks[row][col].getWidth(), bricks[row][col].getHeight());
+                    g.setColor(bricks[row][col].getColor());
+                    g.drawRect(bricks[row][col].getX(), bricks[row][col].getY(), bricks[row][col].getWidth(), bricks[row][col].getHeight());
+                }
             }
         }
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        checkCollision(ball);
+        repaint();
+    }
 
+    private void checkCollision(Ball ball) {
+        Rectangle ballRect = ball.getBounds();
+
+        for (int row = 0; row < bricks.length; row++) {
+            for (int col = 0; col < bricks[row].length; col++) {
+                if (bricks[row][col].isVisible()) {
+                    Rectangle brickRect = bricks[row][col].getBounds();
+
+                    if (ballRect.intersects(brickRect)) {
+                        bricks[row][col].setVisible(false);
+                        score++;
+                        // 충돌 시 꺾임.
+                        // 벽돌의 중심 좌표
+                        double brickCenterX = brickRect.getX() + brickRect.getWidth() / 2;
+                        double brickCenterY = brickRect.getY() + brickRect.getHeight() / 2;
+
+                        // 공의 중심 좌표
+                        double ballCenterX = ball.xPosition() + ball.radiusOf();
+                        double ballCenterY = ball.yPosition() + ball.radiusOf();
+
+                        // 벽돌의 중심과 공의 중심 간의 상대적인 위치 계산
+                        double dx = Math.abs(ballCenterX - brickCenterX);
+                        double dy = Math.abs(ballCenterY - brickCenterY);
+
+                        if (dy > dx) {
+//                            ball.x_vel(-ball.getX_velocity());
+                            ball.y_vel(-ball.getY_velocity());
+                        } else {
+                            ball.x_vel(-ball.getX_velocity());
+//                            ball.y_vel(-ball.getY_velocity());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
+    
+    // brick 초기화
+    public void reset() {
+        score = 0;
+        for (int row = 0; row < bricks.length; row++) {
+            for (int col = 0; col < bricks[row].length; col++) {
+                bricks[row][col].setVisible(true);
+            }
+        }
+    }
 }

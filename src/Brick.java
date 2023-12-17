@@ -17,7 +17,9 @@ public class Brick {
         this.isVisible = true; // 벽돌 보임.
     }
 
-    public boolean isVisible() { return isVisible; }
+    public boolean isVisible() {
+        return isVisible;
+    }
 
     public int getX() {
         return x;
@@ -41,6 +43,10 @@ public class Brick {
 
     public void setVisible(boolean isVisible) {
         this.isVisible = isVisible;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
     }
 
 }

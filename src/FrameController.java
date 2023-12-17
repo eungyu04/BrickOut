@@ -15,7 +15,7 @@ public class FrameController {
     public boolean getDifficulty() {
         if (difficultFrame.getUser_difficulty().equals("easy"))     // easy -> true
             return true;
-        else        // hard -> false
+        else                // hard -> false
             return false;
     }
 

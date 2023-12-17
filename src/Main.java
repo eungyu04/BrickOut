@@ -9,12 +9,12 @@ public class Main {
 
         Box box = new Box(box_width, box_height);
         Pedal Pd = new Pedal(150, 170, 20);
-        Ball MB = new Ball(0, 0, 10, box, Pd, FC);
+        Ball MB = new Ball(200, 400, 10, box, Pd, FC);
 
         BoxWriter BoW = new BoxWriter(box);
         PedalWriter PeW = new PedalWriter(Pd, box_height);
         BallWriter BaW = new BallWriter(MB, Color.WHITE);
-        BrickWriter BrW = new BrickWriter();
+        BrickWriter BrW = new BrickWriter(MB);
 
         AnimationWriter AW = new AnimationWriter(BoW, BaW, PeW, BrW, box_width, box_height);
 

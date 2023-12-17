@@ -1,4 +1,5 @@
-import javax.swing.*;
+import java.awt.*;
+
 
 public class Ball {
     private int x_pos, y_pos, radius;   // x위치, y위치, 반지름
@@ -43,9 +44,24 @@ public class Ball {
 
     }
 
+    // 속도변경
+    public void x_vel(int x) { x_velocity = x; }
+    public void y_vel(int y) { y_velocity = y; }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x_pos, y_pos, 2 * this.radius, 2 * this.radius);
+    }
+    public int getX_velocity() {
+        return x_velocity;
+    }
+    public int getY_velocity() {
+        return y_velocity;
+    }
+
+    // 죽었는지 확인
     public boolean non_death() {
         if (container.outVerticalContact(y_pos)) {  // 박스를 나가면 게임 종료
-            gameEnd();
+            now = false;
         }
         else {
             now = true;
@@ -54,10 +70,10 @@ public class Ball {
     }
 
     public void gameStart() {
-        x_velocity = 15; y_velocity = 6; x_pos = 0; y_pos = 0; now = true;
+        x_velocity = 15; y_velocity = 6; x_pos = 200; y_pos = 400; now = true;
     }
     public void gameEnd() {
-        x_velocity = 0; y_velocity = 0; x_pos = 0; y_pos = 0; now = false; pedal.setGame(150);  // 페달도 초기 위치로 설정
+        x_velocity = 0; y_velocity = 0; x_pos = 200; y_pos = 400; now = false;
     }
-
+    
 }

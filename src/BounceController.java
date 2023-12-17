@@ -24,23 +24,25 @@ public class BounceController extends KeyAdapter {
             ball.move(time_unit);
             writer.repaint();
 
-            if(ball.non_death() == false) { // 한 번만 실행됨
+            if(ball.non_death() == false) {
                 FC.game2main();
-                JOptionPane.showMessageDialog(null, "your Score is\n");
-                Record();
+                JOptionPane.showMessageDialog(null, "your Score is " + writer.getScore() + ".\n");
+                Record();               // 결과를 기록하고
+                writer.ResetBricks();   // 벽돌초기화
+                pedal.setGame(150);     // 페달초기화
+                ball.gameEnd();         // 볼초기화
             }
         }
     }
 
     private void Record() {
-        String user = FC.getUserName();
+        String user = FC.getUserName() + "/" + writer.getScore();
         System.out.println(user);
 
         if (FC.getDifficulty())
             return;
 
     }
-
 
     // key event -> KeyPressed() 정의
     @Override
