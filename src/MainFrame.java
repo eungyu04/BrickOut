@@ -1,27 +1,22 @@
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainFrame extends JFrame {
-    private DifficultyFrame DF;
-    private Box box;
+public class MainFrame {
+    private FrameController FC;
+
     private JFrame MainFrame;
     private JPanel mainPanel1;
     private JPanel mainPanel2;
     private boolean visible = true;
-    String user_name;
+    private String user_name;
 
-    public MainFrame(DifficultyFrame DF, Box box) {
-        this.DF = DF;
-        this.box = box;
-
-        // background image1
-        Image beforeImage = new ImageIcon(getClass().getResource("/image/background1.png")).getImage();
-        Image afterImage = beforeImage.getScaledInstance(box.SizeOf_width(), box.SizeOf_height(), Image.SCALE_SMOOTH);
-        ImageIcon backgroundIcon = new ImageIcon(afterImage);
+    public MainFrame(FrameController FC, Box box) {
+        this.FC = FC;
 
         MainFrame = new JFrame();
-        MainFrame.setTitle("Game");
+        MainFrame.setTitle("Main");
         MainFrame.setSize(box.SizeOf_width(), box.SizeOf_height());
         MainFrame.setResizable(false);
         MainFrame.setLocationRelativeTo(null);
@@ -33,42 +28,38 @@ public class MainFrame extends JFrame {
         CardLayout CL = (CardLayout) CardPanel.getLayout();
 
         // 패널1 (이름 입력칸, 확인)
-        mainPanel1 = createPanel(backgroundIcon, 0, 0);
+        mainPanel1 = createPanel(new ImageIcon(getClass().getResource("/image/background1.png")), 0, 0);
         mainPanel1.setLayout(new GridBagLayout());       // 레이아웃을 GridBagLayout으로 설정
         CardPanel.add(mainPanel1);                       // frame에 추가
 
         // 이름 입력 - 패널1
         JPanel nameArea = createPanel(new ImageIcon(getClass().getResource("/image/name.png")), 0, 0);
         nameArea.setPreferredSize(new Dimension(200, 60));
+        nameArea.setLayout(new BorderLayout());
 
         JTextField name = new JTextField();
         name.setBorder(BorderFactory.createEmptyBorder());      // 테두리없애기
         name.setOpaque(false);                                  // 투명배경
         name.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 30));    // Font 설정
+        ((AbstractDocument) name.getDocument()).setDocumentFilter(new NoSpaceFilter());     // 공백 입력을 못하게
 
-        nameArea.setLayout(new BorderLayout());
         nameArea.add(name, BorderLayout.CENTER);
         addButton(mainPanel1, nameArea, 0, 0, 230, 0, 0, 0);    // panel1에 nameArea 추가
 
-        // 확인버튼 - 패널1 -> 이름이 입력되지 않으면 file 입력하는 부분에서 IOecexption뜨게되고, 이걸 try-catch로 잡아야됨
+        // 확인버튼 - 패널1
         JButton okayButton = createButton("/image/okaybutton.png", "/image/okaybutton2.png");
         addButton(mainPanel1, okayButton, 0, 1, 20, 0, 0, 0);
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user_name = name.getText();
+                user_name = name.getText().replaceAll("\\s", "");   // 전체 공백 제거
                 System.out.println(user_name);
-                CL.next(CardPanel);
+                if(checkName(user_name)) { CL.next(CardPanel); }
             }
         });
 
-        // background image2
-        Image beforeImage2 = new ImageIcon(getClass().getResource("/image/background2.png")).getImage();
-        Image afterImage2 = beforeImage2.getScaledInstance(box.SizeOf_width(), box.SizeOf_height(), Image.SCALE_SMOOTH);
-        ImageIcon backgroundIcon2 = new ImageIcon(afterImage2);
-
         // 패널2 (Start, Ranking)
-        mainPanel2 = createPanel(backgroundIcon2, 0, 0);
+        mainPanel2 = createPanel(new ImageIcon(getClass().getResource("/image/background2.png")), 0, 0);
         mainPanel2.setLayout(new GridBagLayout());       // 레이아웃을 GridBagLayout으로 설정
         CardPanel.add(mainPanel2);                                 // 메인패널을 frame에 추가
 
@@ -78,14 +69,19 @@ public class MainFrame extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.setVisible(false);
-                DF.setvisible(true);
+                FC.main2diff();
             }
         });
 
         // 랭킹버튼 - 패널2
         JButton rankButton = createButton("/image/rankingbutton.png", "/image/rankingbutton2.png");
         addButton(mainPanel2, rankButton, 0, 1, 20, 0, 0, 0);
+        rankButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FC.main2rank();
+            }
+        });
 
         // back버튼 - 패널2
         JButton backButton = createButton("/image/backbutton.png", "/image/backbutton2.png");
@@ -97,10 +93,22 @@ public class MainFrame extends JFrame {
             }
         });
 
-
         MainFrame.setVisible(visible);
     }
 
+    // 이름 체크 함수
+    private boolean checkName(String user_name) {
+        try {
+            if (user_name.charAt(0) == ' ') {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e ) {
+            return false;
+        }
+    }
+    
     // 패널 제작 함수
     private JPanel createPanel(ImageIcon image, int x, int y) {
         JPanel panel = new JPanel() {
@@ -140,4 +148,20 @@ public class MainFrame extends JFrame {
         MainFrame.setVisible(visible);
     }
 
+}
+
+class NoSpaceFilter extends DocumentFilter {
+    @Override
+    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+            throws BadLocationException {
+        if (containsSpace(text)) {
+            // 공백이 포함된 경우 입력을 허용하지 않음
+            return;
+        }
+        super.replace(fb, offset, length, text, attrs);
+    }
+
+    private boolean containsSpace(String text) {
+        return text != null && text.contains(" ");
+    }
 }

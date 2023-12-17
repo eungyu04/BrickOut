@@ -3,33 +3,28 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class DifficultyFrame {
-    private AnimationWriter AW;
-    private Ball MB;
-    private Box box;
-    private MainFrame MF;
+    private FrameController FC;
+    private Pedal Pd;                // 난이도조절때문에
+    private Ball ball;
+
     private JFrame difficulty_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능
     private boolean visible;
     private String user_difficulty;
 
-    public DifficultyFrame(AnimationWriter aw, Ball mb, Box box) {
-        this.AW = aw;
-        this.MB = mb;
-        this.box = box;
-        //this.MF = mf;
-
-        Image beforeImage = new ImageIcon(getClass().getResource("/image/background3.png")).getImage();
-        Image afterImage = beforeImage.getScaledInstance(box.SizeOf_width(), box.SizeOf_height(), Image.SCALE_SMOOTH);
-        ImageIcon backgroundIcon3 = new ImageIcon(afterImage);
+    public DifficultyFrame(FrameController fc, Pedal Pd, Box box, Ball ball) {
+        this.FC = fc;
+        this.Pd = Pd;
+        this.ball = ball;
 
         difficulty_frame = new JFrame();                 // JFrame 객체 생성
         difficulty_frame.setTitle("DIFFICULTY");                // title
-        difficulty_frame.setSize( box.SizeOf_width(), box.SizeOf_height());        // frame size
+        difficulty_frame.setSize( box.SizeOf_width(), box.SizeOf_height() );        // frame size
         difficulty_frame.setResizable(false);                   // 크기조절
         difficulty_frame.setLocationRelativeTo(null);
         difficulty_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // JPanel 객체 생성
-        JPanel difficultly_panel = createPanel(backgroundIcon3, 0, 0);
+        JPanel difficultly_panel = createPanel(new ImageIcon(getClass().getResource("/image/background3.png")), 0, 0);
         difficultly_panel.setLayout(new GridBagLayout());
 
         // slow button (easy)
@@ -38,12 +33,11 @@ public class DifficultyFrame {
         easybutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                difficulty_frame.setVisible(false);
-                AW.setvisible(true);
+                FC.diff2game();
                 user_difficulty = "easy";
                 System.out.println(user_difficulty);
-                MB.x_vel(5);
-                MB.y_vel(2);
+                Pd.setWidth(200);
+                ball.gameStart();
             }
         });
 
@@ -53,26 +47,23 @@ public class DifficultyFrame {
         hardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                difficulty_frame.setVisible(false);
-                AW.setvisible(true);
+                FC.diff2game();
                 user_difficulty = "hard";
                 System.out.println(user_difficulty);
-                MB.x_vel(15);
-                MB.y_vel(6);
+                Pd.setWidth(160);
+                ball.gameStart();
             }
         });
 
         // back button
         JButton backButton = createButton("/image/backButton.png", "/image/backButton2.png");
         addButton(difficultly_panel, backButton, 0, 1, 100, 0, 0, 0, 2);
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                difficulty_frame.setVisible(false);
-//                MF.setvisible(true);
-//            }
-//        });
-
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FC.diff2main();
+            }
+        });
 
         difficulty_frame.add(difficultly_panel);                // frame에 panel 추가
         difficulty_frame.setVisible(false);                     // 처음엔 false

@@ -16,4 +16,5 @@ public class BallWriter {
         int radius = ball.radiusOf();   // 반지름
         g.fillOval(ball.xPosition() - radius, ball.yPosition() - radius, radius *2, radius *2); // 공 그리기
     }
+
 }

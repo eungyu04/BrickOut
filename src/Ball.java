@@ -9,11 +9,7 @@ public class Ball {
 
     // constructor
     public Ball(int x, int y, int r, Box box, Pedal Pd) {
-        x_pos = x;
-        y_pos = y;
-        radius = r;
-        container = box;
-        pedal = Pd;
+        x_pos = x; y_pos = y; radius = r; container = box; pedal = Pd;
     }
 
     // getter
@@ -50,8 +46,11 @@ public class Ball {
         }
     }
 
-    // 속도변경
-    public void x_vel(int x) { x_velocity = x; }
-    public void y_vel(int y) { y_velocity = y; }
+    public void gameStart() {
+        x_velocity = 15; y_velocity = 6; x_pos = 0; y_pos = 0;
+    }
+    public void gameEnd() {
+
+    }
 
 }
