@@ -17,6 +17,7 @@ public class Pedal {
     public int get_velocity() { return velocity; }
 
     // setter
+    public void setGame(int x) { x_pos = x;}
     public void setWidth(int w) { width = w; }
     public void moveLeft() { if (x_pos > 0 ) x_pos -= velocity; }
     public void moveRight() { if (x_pos + width < 465 ) x_pos += velocity; }    // 480보다 작을 때

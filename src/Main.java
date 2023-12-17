@@ -9,7 +9,7 @@ public class Main {
 
         Box box = new Box(box_width, box_height);
         Pedal Pd = new Pedal(150, 170, 20);
-        Ball MB = new Ball(0, 0, 10, box, Pd);
+        Ball MB = new Ball(0, 0, 10, box, Pd, FC);
 
         BoxWriter BoW = new BoxWriter(box);
         PedalWriter PeW = new PedalWriter(Pd, box_height);
@@ -18,7 +18,7 @@ public class Main {
 
         AnimationWriter AW = new AnimationWriter(BoW, BaW, PeW, BrW, box_width, box_height);
 
-        BounceController BC = new BounceController(MB, AW, Pd);
+        BounceController BC = new BounceController(MB, AW, Pd, FC);
 
         // Frame----------------------------------
         DifficultyFrame DF = new DifficultyFrame(FC, Pd, box, MB);
@@ -26,6 +26,8 @@ public class Main {
         RankingFrame RF = new RankingFrame(FC);
         FC.setClass(AW, DF, MF, RF);
 
-        BC.runAnimation();
+        while (true) {
+            BC.runAnimation();
+        }
     }
 }

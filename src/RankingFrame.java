@@ -1,6 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.plaf.basic.BasicScrollBarUI;     // 스크롤바
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -60,21 +60,25 @@ public class RankingFrame {
 
 
         // 여기서부터 파일 불러옴
+        update();
+    }
+    
+    // update(public) 파일읽기-정렬-다시그리기
+    public void update() {
         try {
             easyMember = readUser("src/member/easy_member.txt");
             hardMember = readUser("src/member/hard_member.txt");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         sort(easyMember);   // 정렬
         sort(hardMember);
 
         addRank(RankingPanel1, easyMember, "EASY");
         addRank(RankingPanel2, hardMember, "HARD");
-
     }
-
+    
     // USER 파일 불러오기
     private List<String> readUser(String filePath) throws Exception {
         List<String> users = new ArrayList<>();
@@ -133,10 +137,7 @@ public class RankingFrame {
             }
         }
     }
-
-    public void update() {
-
-    }
+    
     
     // GUI에 추가
     private void addRank(JPanel panel, List<String> rankingList, String title ) {
@@ -152,7 +153,6 @@ public class RankingFrame {
         rankingTextArea.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 20));
         rankingTextArea.setBackground(Color.black);
         rankingTextArea.setForeground(Color.white);
-//        rankingTextArea.setOpaque(false);
         rankingTextArea.setBorder(new EmptyBorder(5,3,0,0));    // 여백
 
         // ScrollPane
@@ -163,7 +163,7 @@ public class RankingFrame {
         
         // 랭킹대로 TextArea에 추가
         int grade = 0;
-        for (String entry : rankingList) {
+        for (String user : rankingList) {
             rankingTextArea.append(grade+1 + "등 : " + rankingList.get(grade).split("/")[0] +
                     "\t" + rankingList.get(grade).split("/")[1] +
                     "개 (" + rankingList.get(grade).split("/")[2] + "초)\n");

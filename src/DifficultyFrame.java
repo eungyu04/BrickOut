@@ -96,6 +96,11 @@ public class DifficultyFrame {
         gbc.insets = new Insets(top, left, bottom, right);         // 여백 추가 -> 버튼 위치 조절하려고
         panel.add(button, gbc);
     }
+
+    public String getUser_difficulty() {
+        return user_difficulty;
+    }
+
     public void setvisible(boolean n) {
         visible = n;
         difficulty_frame.setVisible(visible);

@@ -1,14 +1,16 @@
+import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class BounceController extends KeyAdapter {
+    private FrameController FC;
     private Ball ball;
     private Pedal pedal;
     private AnimationWriter writer;
 
     // Constructor (생성자)
-    public BounceController(Ball MB, AnimationWriter AW, Pedal Pd) {
-        ball = MB; writer = AW; pedal = Pd;
+    public BounceController(Ball MB, AnimationWriter AW, Pedal Pd, FrameController fc) {
+        ball = MB; writer = AW; pedal = Pd; FC = fc;
         writer.addKeyListener(this);                        // KeyListener이 있어야 key event를 받아올 수 있음
         writer.setFocusable(true);                          // 포커스를 여기로 설정
     }
@@ -16,13 +18,29 @@ public class BounceController extends KeyAdapter {
     public void runAnimation() {    // main 다음 실행, 공에게 1시간 단위만큼 움직이라 지시, 뷰에게 현재 공의 상태를 다시 그리라고 지시
         int time_unit = 1;
         int painting_delay = 20;
-        while (true)
+        while (ball.non_death())    // 살아있을 때만 실행
         {
             delay(painting_delay);
             ball.move(time_unit);
             writer.repaint();
+
+            if(ball.non_death() == false) { // 한 번만 실행됨
+                FC.game2main();
+                JOptionPane.showMessageDialog(null, "your Score is\n");
+                Record();
+            }
         }
     }
+
+    private void Record() {
+        String user = FC.getUserName();
+        System.out.println(user);
+
+        if (FC.getDifficulty())
+            return;
+
+    }
+
 
     // key event -> KeyPressed() 정의
     @Override

@@ -41,7 +41,7 @@ public class MainFrame {
         name.setBorder(BorderFactory.createEmptyBorder());      // 테두리없애기
         name.setOpaque(false);                                  // 투명배경
         name.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 30));    // Font 설정
-        ((AbstractDocument) name.getDocument()).setDocumentFilter(new NoSpaceFilter());     // 공백 입력을 못하게
+        ((AbstractDocument) name.getDocument()).setDocumentFilter(new Filter());     // 공백 입력을 못하게
 
         nameArea.add(name, BorderLayout.CENTER);
         addButton(mainPanel1, nameArea, 0, 0, 230, 0, 0, 0);    // panel1에 nameArea 추가
@@ -149,19 +149,27 @@ public class MainFrame {
     }
 }
 
-// 공백입력 못하게 하기위한 클래스
-class NoSpaceFilter extends DocumentFilter {
+// 공백, 특수문자를 입력 못하게 하기위한 클래스
+class Filter extends DocumentFilter {
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
             throws BadLocationException {
-        if (containsSpace(text)) {
-            // 공백이 포함된 경우 입력을 허용하지 않음
+        if (containsNonAlphabetic(text)) {
             return;
         }
         super.replace(fb, offset, length, text, attrs);
     }
 
-    private boolean containsSpace(String text) {
-        return text != null && text.contains(" ");
+    private boolean containsNonAlphabetic(String text) {
+        // 한글, 영어만
+        for (char c : text.toCharArray()) {
+            if (!Character.isLetter(c) || !Character.UnicodeBlock.of(c).equals(Character.UnicodeBlock.HANGUL_SYLLABLES)
+                    && !Character.UnicodeBlock.of(c).equals(Character.UnicodeBlock.HANGUL_COMPATIBILITY_JAMO)
+                    && !Character.UnicodeBlock.of(c).equals(Character.UnicodeBlock.HANGUL_JAMO)
+                    && !Character.UnicodeBlock.of(c).equals(Character.UnicodeBlock.BASIC_LATIN)) {
+                return true; // 한글, 영어면 true를 return해서 작동되게
+            }
+        }
+        return false; // 아니면 false
     }
 }

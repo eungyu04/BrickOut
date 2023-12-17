@@ -24,6 +24,7 @@ public class AnimationWriter extends JPanel {
         my_frame.setResizable(false);                   // 크기조절 안되게
         my_frame.setLocationRelativeTo(null);           // 위치이동
         my_frame.setVisible(visible);                   // 처음엔 안보임
+        my_frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void setvisible(boolean n) {

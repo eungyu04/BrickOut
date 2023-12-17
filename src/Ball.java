@@ -4,12 +4,13 @@ public class Ball {
     private int x_pos, y_pos, radius;   // x위치, y위치, 반지름
     private int x_velocity;         // x축 속도
     private int y_velocity;         // y축 속도
+    private boolean now = true;
     private Box container;
     private Pedal pedal;
 
     // constructor
-    public Ball(int x, int y, int r, Box box, Pedal Pd) {
-        x_pos = x; y_pos = y; radius = r; container = box; pedal = Pd;
+    public Ball(int x, int y, int r, Box box, Pedal Pd, FrameController fc) {
+        x_pos = x; y_pos = y; radius = r; container = box; pedal = Pd; //FC = fc;
     }
 
     // getter
@@ -32,25 +33,31 @@ public class Ball {
         y_pos = y_pos + y_velocity * time_units;
         if (container.inVerticalContact(y_pos))     // 벽 튕기기
             y_velocity = -y_velocity;
-
-        if (container.outVerticalContact(y_pos)) {      // 게임 종료
-            JOptionPane.showMessageDialog(null, "Game Over \nGo to Ranking");
-            System.exit(0);
-        }
-
+        
         if (x_pos + radius >= pedal.getX_pos() && x_pos - radius <= pedal.getX_pos() + pedal.get_width()
                 && y_pos + radius >= container.SizeOf_height() - 100 && y_pos <= container.SizeOf_height() - 100 + pedal.get_height()) { // pedal과 닿으면 튕기기
 
             if (y_velocity > 0) // pedal 안에 갇힘 방지
                 y_velocity = -y_velocity;
         }
+
+    }
+
+    public boolean non_death() {
+        if (container.outVerticalContact(y_pos)) {  // 박스를 나가면 게임 종료
+            gameEnd();
+        }
+        else {
+            now = true;
+        }
+        return now;
     }
 
     public void gameStart() {
-        x_velocity = 15; y_velocity = 6; x_pos = 0; y_pos = 0;
+        x_velocity = 15; y_velocity = 6; x_pos = 0; y_pos = 0; now = true;
     }
     public void gameEnd() {
-
+        x_velocity = 0; y_velocity = 0; x_pos = 0; y_pos = 0; now = false; pedal.setGame(150);  // 페달도 초기 위치로 설정
     }
 
 }

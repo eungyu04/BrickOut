@@ -4,7 +4,7 @@ public class FrameController {
     private MainFrame mainFrame;
     private RankingFrame rankingFrame;
 
-    // 생성자 역할
+    // Frame정의
     public void setClass(AnimationWriter gF, DifficultyFrame dF, MainFrame mF, RankingFrame rF) {
         this.gameFrame = gF;
         this.difficultFrame = dF;
@@ -12,6 +12,17 @@ public class FrameController {
         this.rankingFrame = rF;
     }
 
+    public boolean getDifficulty() {
+        if (difficultFrame.getUser_difficulty().equals("easy"))     // easy -> true
+            return true;
+        else        // hard -> false
+            return false;
+    }
+
+    public String getUserName() {
+        return mainFrame.getUser_name();
+    }
+    
     public void main2diff() {
         mainFrame.setvisible(false);
         difficultFrame.setvisible(true);
