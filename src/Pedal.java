@@ -14,7 +14,6 @@ public class Pedal {
     public int getX_pos() { return x_pos; }
     public int get_width() { return width; }
     public int get_height() { return height; }
-    public int get_velocity() { return velocity; }
 
     // setter
     public void setGame(int x) { x_pos = x;}

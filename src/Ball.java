@@ -1,6 +1,5 @@
 import java.awt.*;
 
-
 public class Ball {
     private int x_pos, y_pos, radius;   // x위치, y위치, 반지름
     private int x_velocity;         // x축 속도
@@ -27,11 +26,11 @@ public class Ball {
 
     // setter
     public void move(int time_units) {      // 공 움직임
-        x_pos = x_pos + x_velocity * time_units;
+        x_pos = x_pos + x_velocity * time_units / 4;
         if (container.inHorizontalContact(x_pos))   // 벽 튕기기
             x_velocity = -x_velocity;
 
-        y_pos = y_pos + y_velocity * time_units;
+        y_pos = y_pos + y_velocity * time_units / 4;
         if (container.inVerticalContact(y_pos))     // 벽 튕기기
             y_velocity = -y_velocity;
         

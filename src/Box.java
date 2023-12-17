@@ -7,7 +7,7 @@ public class Box {
         box_width = xsize;
         box_height = ysize;
     }
-    
+
     // 밖으로 나갔을 때 벽 튕김
     public boolean inHorizontalContact(int x_position) {    // x축 벽에 나갔는지 확인
         return x_position <= 0 || x_position >= box_width;

@@ -15,6 +15,8 @@ public class RankingFrame {
     private JPanel RankingPanel1;
     private JPanel RankingPanel2;
     private JButton backButton;
+    private JTextArea easy;
+    private JTextArea hard;
 
     private List<String> easyMember;    // "name/score/time"
     private List<String> hardMember;    // "name/score/time"
@@ -58,6 +60,8 @@ public class RankingFrame {
         });
         southPanel.add(backButton);
 
+        easy = addRank(RankingPanel1, "EASY");
+        hard = addRank(RankingPanel2, "HARD");
 
         // 여기서부터 파일 불러옴
         update();
@@ -73,10 +77,10 @@ public class RankingFrame {
         }
 
         sort(easyMember);   // 정렬
-        sort(hardMember);
+        sort(hardMember);   // 정렬
 
-        addRank(RankingPanel1, easyMember, "EASY");
-        addRank(RankingPanel2, hardMember, "HARD");
+        updateText(easyMember, easy);
+        updateText(hardMember, hard);
     }
     
     // USER 파일 불러오기
@@ -90,8 +94,9 @@ public class RankingFrame {
             while ((user = reader.readLine()) != null) {    // 줄 기준으로 읽어옴
                 users.add(user);
             }
+            reader.close();
+
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return users;
@@ -110,7 +115,7 @@ public class RankingFrame {
             try {
                 scores[i] = Integer.parseInt(t.nextToken());
                 times[i] = Integer.parseInt(t.nextToken());
-            } catch (NumberFormatException e) {}
+            } catch (Exception e) {}
         }
 
         // 점수에 따라 정렬 (람다식을 사용해도 되긴 하는데 그냥)
@@ -138,9 +143,8 @@ public class RankingFrame {
         }
     }
     
-    
-    // GUI에 추가
-    private void addRank(JPanel panel, List<String> rankingList, String title ) {
+    // GUI 추가 함수
+    private JTextArea addRank(JPanel panel, String title ) {
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.BOLD, 20));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -160,15 +164,21 @@ public class RankingFrame {
         customizeScrollbar(scrollPane.getVerticalScrollBar());
 
         panel.add(scrollPane);
-        
-        // 랭킹대로 TextArea에 추가
+
+        return rankingTextArea;
+    }
+
+    // 랭킹대로 TextArea에 업데이트
+    public void updateText(List<String> rankingList, JTextArea rankingTextArea) {
         int grade = 0;
-        for (String user : rankingList) {
-            rankingTextArea.append(grade+1 + "등 : " + rankingList.get(grade).split("/")[0] +
-                    "\t" + rankingList.get(grade).split("/")[1] +
-                    "개 (" + rankingList.get(grade).split("/")[2] + "초)\n");
-            grade++;
-        }
+        try {
+            for (String user : rankingList) {
+                rankingTextArea.append(grade + 1 + "등 : " + rankingList.get(grade).split("/")[0] +
+                        "\t" + rankingList.get(grade).split("/")[1] +
+                        "개 (" + rankingList.get(grade).split("/")[2] + "초)\n");
+                grade++;
+            }
+        } catch (Exception e) {}
     }
 
     // 버튼 제작 함수

@@ -10,7 +10,7 @@ public class PedalWriter {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.white);        // 색 지정
+        g.setColor(Color.white);            // 색 지정
         g.fillRoundRect(pedal.getX_pos(), ysize - 100, pedal.get_width(), pedal.get_height(), 10, 10);   // pedal
     }
 

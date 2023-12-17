@@ -6,7 +6,7 @@ public class AnimationWriter extends JPanel {
     private BallWriter ball_writer;
     private PedalWriter pedal_writer;
     private BrickWriter brick_writer;
-    private JFrame my_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능
+    private JFrame my_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능하다
     private boolean visible = false;    // 초기 가시성은 false
 
     // Constructor (생성자)
@@ -17,14 +17,13 @@ public class AnimationWriter extends JPanel {
         brick_writer = BrW;
         
         my_frame = new JFrame();                 // JFrame 객체 생성
-        my_frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //
-        my_frame.getContentPane().add(this);            //
+        my_frame.getContentPane().add(this);
         my_frame.setTitle("GAME");                      // title
         my_frame.setSize(xsize , ysize);                // frame size
         my_frame.setResizable(false);                   // 크기조절 안되게
         my_frame.setLocationRelativeTo(null);           // 위치이동
         my_frame.setVisible(visible);                   // 처음엔 안보임
-        my_frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        my_frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //x button
     }
 
     public void setvisible(boolean n) {

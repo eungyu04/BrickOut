@@ -10,6 +10,7 @@ public class DifficultyFrame {
     private JFrame difficulty_frame;            // 여기서 정의해줘야 다른 함수에서도 사용 가능
     private boolean visible;
     private String user_difficulty;
+    long startTime;
 
     public DifficultyFrame(FrameController fc, Pedal Pd, Box box, Ball ball) {
         this.FC = fc;
@@ -35,7 +36,7 @@ public class DifficultyFrame {
             public void actionPerformed(ActionEvent e) {
                 FC.diff2game();
                 user_difficulty = "easy";
-                System.out.println(user_difficulty);
+                startTime = System.currentTimeMillis();    // timer 시작
                 Pd.setWidth(200);
                 ball.gameStart();
             }
@@ -49,7 +50,7 @@ public class DifficultyFrame {
             public void actionPerformed(ActionEvent e) {
                 FC.diff2game();
                 user_difficulty = "hard";
-                System.out.println(user_difficulty);
+                startTime = System.currentTimeMillis();    // timer 시작
                 Pd.setWidth(160);
                 ball.gameStart();
             }
@@ -100,6 +101,10 @@ public class DifficultyFrame {
     public String getUser_difficulty() {
         return user_difficulty;
     }
+    public long getStartTime() {
+        return startTime;
+    }
+
 
     public void setvisible(boolean n) {
         visible = n;

@@ -12,7 +12,7 @@ public class BallWriter {
 
     // setter
     public void paint(Graphics g) {
-        g.setColor(balls_color);        // 색 지정
+        g.setColor(balls_color);        // 색지정
         int radius = ball.radiusOf();   // 반지름
         g.fillOval(ball.xPosition() - radius, ball.yPosition() - radius, radius *2, radius *2); // 공 그리기
     }

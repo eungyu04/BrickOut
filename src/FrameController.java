@@ -19,10 +19,11 @@ public class FrameController {
             return false;
     }
 
-    public String getUserName() {
-        return mainFrame.getUser_name();
-    }
-    
+    public String getUserName() { return mainFrame.getUser_name(); }
+    public long getStartTime() { return difficultFrame.getStartTime(); }
+
+    public void update() { rankingFrame.update(); }
+
     public void main2diff() {
         mainFrame.setvisible(false);
         difficultFrame.setvisible(true);

@@ -53,7 +53,6 @@ public class MainFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 user_name = name.getText();
-                System.out.println(user_name);
                 if(checkName(user_name)) CL.next(CardPanel);
             }
         });

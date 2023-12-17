@@ -80,11 +80,9 @@ public class BrickWriter extends JFrame implements ActionListener {
                         double dy = Math.abs(ballCenterY - brickCenterY);
 
                         if (dy > dx) {
-//                            ball.x_vel(-ball.getX_velocity());
                             ball.y_vel(-ball.getY_velocity());
                         } else {
                             ball.x_vel(-ball.getX_velocity());
-//                            ball.y_vel(-ball.getY_velocity());
                         }
                     }
                 }

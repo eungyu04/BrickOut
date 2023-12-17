@@ -1,7 +1,8 @@
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {    // main()
+    public static void main(String[] args) throws IOException {    // main()
         int box_width = 480;
         int box_height = 720;
 
