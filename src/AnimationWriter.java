@@ -40,7 +40,6 @@ public class AnimationWriter extends JPanel {
         brick_writer.reset();
     }
 
-
     @Override // 패널에 그림
     public void paintComponent(Graphics g) {
         box_writer.paint(g);
@@ -48,5 +47,4 @@ public class AnimationWriter extends JPanel {
         pedal_writer.paint(g);
         brick_writer.paint(g);
     }
-
 }

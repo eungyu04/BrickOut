@@ -12,9 +12,7 @@ public class RankingFrame {
 
     private JFrame RankingFrame;
     private JPanel mainPanel;
-    private JPanel RankingPanel1;
-    private JPanel RankingPanel2;
-    private JButton backButton;
+
     private JTextArea easy;
     private JTextArea hard;
 
@@ -38,11 +36,11 @@ public class RankingFrame {
         RankingFrame.add(mainPanel);
 
         // 두 개의 panel (난이도별로)
-        RankingPanel1 = new JPanel(new BorderLayout());   // easyPanel
+        JPanel RankingPanel1 = new JPanel(new BorderLayout());   // easyPanel
         RankingPanel1.setBackground(Color.black);
         mainPanel.add(RankingPanel1,BorderLayout.WEST);
 
-        RankingPanel2 = new JPanel(new BorderLayout());   // hardPanel
+        JPanel RankingPanel2 = new JPanel(new BorderLayout());   // hardPanel
         RankingPanel2.setBackground(Color.black);
         mainPanel.add(RankingPanel2,BorderLayout.EAST);
 
@@ -51,7 +49,7 @@ public class RankingFrame {
         southPanel.setBackground(Color.black);
         mainPanel.add(southPanel, BorderLayout.SOUTH);
 
-        backButton = createButton("/image/backbutton.png", "/image/backbutton2.png");
+        JButton backButton = createButton("/image/backbutton.png", "/image/backbutton2.png");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +82,7 @@ public class RankingFrame {
     }
     
     // USER 파일 불러오기
-    private List<String> readUser(String filePath) throws Exception {
+    private List<String> readUser(String filePath) throws IOException {
         List<String> users = new ArrayList<>();
 
         try {
@@ -143,10 +141,10 @@ public class RankingFrame {
         }
     }
     
-    // GUI 추가 함수
+    // JTextArea GUI 추가 함수
     private JTextArea addRank(JPanel panel, String title ) {
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.BOLD, 20));
+//        titleLabel.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.BOLD, 20));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setForeground(Color.white);
         titleLabel.setBorder(new EmptyBorder(10,0,5,0));    // 여백
@@ -154,15 +152,14 @@ public class RankingFrame {
 
         JTextArea rankingTextArea = new JTextArea(20, 20);
         rankingTextArea.setEditable(false);                                 // 편집X
-        rankingTextArea.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 20));
+//        rankingTextArea.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 20));
         rankingTextArea.setBackground(Color.black);
         rankingTextArea.setForeground(Color.white);
         rankingTextArea.setBorder(new EmptyBorder(5,3,0,0));    // 여백
 
         // ScrollPane
         JScrollPane scrollPane = new JScrollPane(rankingTextArea);
-        customizeScrollbar(scrollPane.getVerticalScrollBar());
-
+        //customizeScrollbar(scrollPane.getVerticalScrollBar());
         panel.add(scrollPane);
 
         return rankingTextArea;
@@ -171,7 +168,9 @@ public class RankingFrame {
     // 랭킹대로 TextArea에 업데이트
     public void updateText(List<String> rankingList, JTextArea rankingTextArea) {
         int grade = 0;
-        try {
+        rankingTextArea.setText("");    // 초기화
+
+        try {   // 다시 추가
             for (String user : rankingList) {
                 rankingTextArea.append(grade + 1 + "등 : " + rankingList.get(grade).split("/")[0] +
                         "\t" + rankingList.get(grade).split("/")[1] +
@@ -191,35 +190,35 @@ public class RankingFrame {
         return button;
     }
     
-    // 마우스 휠 커스터마이징 --> 제출할 때는 지우고
-    private static void customizeScrollbar(JScrollBar scrollBar) {
-        scrollBar.setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = Color.black; // 스크롤바 색상 변경
-                this.thumbDarkShadowColor = Color.black; // 스크롤바 그라데이션 시작 색상 변경
-                this.thumbHighlightColor = Color.white; // 스크롤바 그라데이션 끝 색상 변경
-            }
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton();
-            }
-
-            private JButton createZeroButton() {
-                JButton button = new JButton();
-                Dimension zeroDim = new Dimension(0, 0);
-                button.setPreferredSize(zeroDim);
-                button.setMinimumSize(zeroDim);
-                button.setMaximumSize(zeroDim);
-                return button;
-            }
-        });
-    }
+    // 마우스 휠 커스터마이징
+//    private static void customizeScrollbar(JScrollBar scrollBar) {
+//        scrollBar.setUI(new BasicScrollBarUI() {
+//            @Override
+//            protected void configureScrollBarColors() {
+//                this.thumbColor = Color.black; // 스크롤바 색상 변경
+//                this.thumbDarkShadowColor = Color.black; // 스크롤바 그라데이션 시작 색상 변경
+//                this.thumbHighlightColor = Color.white; // 스크롤바 그라데이션 끝 색상 변경
+//            }
+//            @Override
+//            protected JButton createDecreaseButton(int orientation) {
+//                return createZeroButton();
+//            }
+//
+//            @Override
+//            protected JButton createIncreaseButton(int orientation) {
+//                return createZeroButton();
+//            }
+//
+//            private JButton createZeroButton() {
+//                JButton button = new JButton();
+//                Dimension zeroDim = new Dimension(0, 0);
+//                button.setPreferredSize(zeroDim);
+//                button.setMinimumSize(zeroDim);
+//                button.setMaximumSize(zeroDim);
+//                return button;
+//            }
+//        });
+//    }
     
     public void setvisible(boolean n) {
         visible = n;

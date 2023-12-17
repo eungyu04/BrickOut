@@ -12,8 +12,8 @@ public class MainFrame {
     private boolean visible = true;
     private String user_name;
 
-    public MainFrame(FrameController FC, Box box) {
-        this.FC = FC;
+    public MainFrame(FrameController fc, Box box) {
+        this.FC = fc;
 
         MainFrame = new JFrame();
         MainFrame.setTitle("Main");
@@ -40,7 +40,7 @@ public class MainFrame {
         JTextField name = new JTextField();
         name.setBorder(BorderFactory.createEmptyBorder());      // 테두리없애기
         name.setOpaque(false);                                  // 투명배경
-        name.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 30));    // Font 설정
+        //name.setFont(new Font("여기어때 잘난체 고딕 TTF", Font.PLAIN, 30));    // Font 설정
         ((AbstractDocument) name.getDocument()).setDocumentFilter(new Filter());     // 공백 입력을 못하게
 
         nameArea.add(name, BorderLayout.CENTER);

@@ -93,7 +93,7 @@ public class BrickWriter extends JFrame implements ActionListener {
     public int getScore() {
         return score;
     }
-    
+
     // brick 초기화
     public void reset() {
         score = 0;
