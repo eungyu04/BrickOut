@@ -52,9 +52,9 @@ public class MainFrame {
         okayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user_name = name.getText().replaceAll("\\s", "");   // 전체 공백 제거
+                user_name = name.getText();
                 System.out.println(user_name);
-                if(checkName(user_name)) { CL.next(CardPanel); }
+                if(checkName(user_name)) CL.next(CardPanel);
             }
         });
 
@@ -147,9 +147,9 @@ public class MainFrame {
         visible = n;
         MainFrame.setVisible(visible);
     }
-
 }
 
+// 공백입력 못하게 하기위한 클래스
 class NoSpaceFilter extends DocumentFilter {
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
